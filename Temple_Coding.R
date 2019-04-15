@@ -24,6 +24,7 @@ View(full_data)
 #pdata is only Particpant responses
 pdata <- subset(full_data, Computer.Response == 0)
 attach(pdata)
+View(pdata)
 
 # Part 1 ------------------------------------------------------------------
 #Average response times (for participants choosing for themselves and choosing for their partners; no computer responses) for Choice 1 across all set size (2, 3, 6, 12) conditions.
@@ -58,6 +59,9 @@ g1 <- ggplot(data = pdata, aes(condition, ch1RTnum)) + geom_point(data = pdata, 
       x = "Set Size",
       y = "Response Time")
 g1 + theme_minimal() 
+
+
+
 
 
 # Part 2 ------------------------------------------------------------------
@@ -102,10 +106,19 @@ g4 <- ggplot(data = pdata, aes(condition2, ch2RTnum)) + geom_point(data = pdata,
 g4 + theme_minimal() 
 
 
+
+
 # Part 3 ------------------------------------------------------------------
 #Average snack preference ratings between Task A, Task B (participants choosing for themselves), and Task B (participants choosing for their partners))
 
-as.factor(
-
-
-
+length(Choosing.For)
+#rating 1- dislike 7-like
+length(Rating)
+#plotting 
+p <- ggplot(data=pdata, aes(x= factor(Choosing.For), Rating)) + geom_boxplot() + stat_summary(fun.y=mean, colour="darkred", geom="point", shape=18, size=3,show.legend = FALSE) 
+p + theme_minimal() +
+  labs(title = "Average snack preference ratings between Tasks",
+       caption = "Data from Neuroeconomics Lab and Social Developmental Neuroscience Lab",
+       tag = "Figure 3",
+       x = "Task A or B",
+       y = "Rating (1-7") 
